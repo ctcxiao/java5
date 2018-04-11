@@ -45,10 +45,10 @@ public class Menu {
         while (true) {
             String inputStdId = new Scanner(System.in).next();
             if (checkInputStdId(inputStdId)) {
-                printInputStdId(inputStdId);
+                printInputStdIdInfo(inputStdId);
                 break;
             } else {
-                printMenuInfo("请按正确的格式输入（格式：姓名, 学号, 学科: 成绩, ...）：\n");
+                printMenuInfo("请按正确的格式输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：\n");
             }
         }
     }
@@ -91,7 +91,7 @@ public class Menu {
         return Pattern.matches(regex, inputStdId + ",");//此处最后加上一个逗号是因为正则表达式(\d+,)+这部分匹配多次最后会多一个逗号，故添加一个逗号以正确匹配
     }
 
-    private void printInputStdId(String inputStdId) {
+    private void printInputStdIdInfo(String inputStdId) {
         if (studentList.isEmpty()) {
             System.out.println("还没有学生信息!!请添加后查询!!");
             return;
