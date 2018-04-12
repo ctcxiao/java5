@@ -17,7 +17,11 @@ public class Menu {
                 "```");
     }
 
-    private void printMenuInfo(String info) {
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void printMenuInfo(String info) {
         System.out.println(",,,\n" + info + ",,,\n");
     }
 
@@ -39,7 +43,7 @@ public class Menu {
         }
     }
 
-    private void executeMenuTwo() {
+    public void executeMenuTwo() {
         printMenuInfo("请输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：\n");
 
         while (true) {
@@ -53,7 +57,7 @@ public class Menu {
         }
     }
 
-    private void executeMenuOne() {
+    public void executeMenuOne() {
         printMenuInfo("请输入学生信息（格式：姓名, 学号, 学科: 成绩, ...），按回车提交：\n");
 
         while (true) {
@@ -67,12 +71,12 @@ public class Menu {
         }
     }
 
-    private boolean checkInputStdInfo(String inputStudentInfo) {
+    public boolean checkInputStdInfo(String inputStudentInfo) {
         String regex = "^([\\u4e00-\\u9fa5]+|\\w+),\\d+,(([\\u4e00-\\u9fa5]+|\\w+):\\d{1,3},)+$";
         return Pattern.matches(regex, inputStudentInfo + ",");//此处最后加上一个逗号是因为正则表达式(([\u4e00-\u9fa5]+|\w+):\d{1,3},)+这部分匹配多次最后会多一个逗号，故添加一个逗号以正确匹配
     }
 
-    private void addStudent(String inputStudentInfo) {
+    public void addStudent(String inputStudentInfo) {
         String[] divideByComma = inputStudentInfo.split(",");
         String stdName = divideByComma[0];
         String stdId = divideByComma[1];
@@ -82,16 +86,19 @@ public class Menu {
             String[] divideByColon = divideByComma[i].split(":");
             classAndScore.put(divideByColon[0], Double.valueOf(divideByColon[1]));//0位是学科名，1位是对应科成绩
         }
-
         studentList.add(new Student(classAndScore, stdName, stdId));
+
+        System.out.println("```\n" +
+                "学生"+stdName+"的成绩被添加\n" +
+                "```");
     }
 
-    private boolean checkInputStdId(String inputStdId) {
+    public boolean checkInputStdId(String inputStdId) {
         String regex = "^(\\d+,)+$";
         return Pattern.matches(regex, inputStdId + ",");//此处最后加上一个逗号是因为正则表达式(\d+,)+这部分匹配多次最后会多一个逗号，故添加一个逗号以正确匹配
     }
 
-    private void printInputStdIdInfo(String inputStdId) {
+    public void printInputStdIdInfo(String inputStdId) {
         if (studentList.isEmpty()) {
             System.out.println("还没有学生信息!!请添加后查询!!");
             return;
@@ -120,7 +127,7 @@ public class Menu {
         System.out.println(",,,\n");
     }
 
-    private void printSelectedStdDetail(String[] selectedStdIdArr) {
+    public void printSelectedStdDetail(String[] selectedStdIdArr) {
         boolean isExist = false;
         for (String selectedStdId : selectedStdIdArr) {
             for (Student std : studentList) {
@@ -137,7 +144,7 @@ public class Menu {
         }
     }
 
-    private double calculateMedian() {
+    public double calculateMedian() {
         List<Double> scoreListSorted = studentList.stream()
                 .mapToDouble(Student::calculateTotalScore)
                 .sorted()
