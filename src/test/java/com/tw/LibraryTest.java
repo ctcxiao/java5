@@ -1,5 +1,6 @@
 package com.tw;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -19,17 +20,17 @@ public class LibraryTest {
     @Test
     public void test_checkInputStdInfo(){
         Menu menu = new Menu();
-        assertTrue("this sentence should return true",menu.checkInputStdInfo("zhangsan,1234,书写:100,语文:99"));
-        assertFalse("this sentence should return false because its format", menu.checkInputStdInfo("ahang,1234,书写,90,语文,90"));
-        assertFalse("empty input should also return flase", menu.checkInputStdInfo(""));
+        Assert.assertTrue(menu.checkInputStdInfo("zhangsan,1234,write:100,chinese:99"));
+        Assert.assertFalse("this sentence should return false because its format", menu.checkInputStdInfo("ahang,1234,书写,90,语文,90"));
+        Assert.assertFalse("empty input should also return flase", menu.checkInputStdInfo(""));
     }
 
     @Test
     public void test_checkInputStdId(){
         Menu menu = new Menu();
-        assertTrue("this sentence should return true", menu.checkInputStdId("1234,4321"));
-        assertFalse("these not number input should return false", menu.checkInputStdId("wee,weew"));
-        assertFalse("empty input should also return false", menu.checkInputStdId(""));
+        Assert.assertTrue("this sentence should return true", menu.checkInputStdId("1234,4321"));
+        Assert.assertFalse("these not number input should return false", menu.checkInputStdId("wee,weew"));
+        Assert.assertFalse("empty input should also return false", menu.checkInputStdId(""));
     }
 
 
@@ -56,7 +57,7 @@ public class LibraryTest {
         Menu menu = new Menu();
         menu.addStudent("张三,1234,数学:100,语文:80,英语:90");
         menu.addStudent("里斯,124,数学:100,语文:80,英语:90");
-        assertEquals(270.0, menu.calculateMedian(), 0.1);
+        Assert.assertEquals(270.0, menu.calculateMedian(), 0.1);
     }
 
 }
